@@ -10,7 +10,6 @@ namespace ClassLibrary1
     public class SQLAction
     {
         private SQLiteAsyncConnection db;
-        public List<Mark> Data { get; set; }
 
         public SQLAction(string databaseName)
         {
@@ -19,7 +18,7 @@ namespace ClassLibrary1
             this.db = new SQLiteAsyncConnection(databasePath);
         }
 
-        public async void Create()
+        /*public async void Create()
         {
             await db.CreateTableAsync<Mark>();
         }
@@ -33,6 +32,12 @@ namespace ClassLibrary1
         {
             var query = db.Table<Mark>();
             return await query.ToListAsync();
+        }*/
+
+        public async void Create()
+        {
+            await db.CreateTableAsync<Synapse>();
+            await db.CreateTableAsync<Mark>();
         }
 
     }

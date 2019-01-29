@@ -20,7 +20,7 @@ namespace MarkCalculator
 
         static private async void x()
         {
-            foreach (var item in await sqlAction.Query())
+            foreach (Mark item in await sqlAction.Query())
             {
                 Console.WriteLine(item.Value + "(" + item.Weight + ")" + ";");
             }
