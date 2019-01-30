@@ -18,26 +18,72 @@ namespace ClassLibrary1
             this.db = new SQLiteAsyncConnection(databasePath);
         }
 
-        /*public async void Create()
+        public async void CreateTables()
         {
             await db.CreateTableAsync<Mark>();
+            await db.CreateTableAsync<Subject>();
+            await db.CreateTableAsync<Binding>();
         }
 
-        public void Add(Mark mark)
-        {
-            db.InsertAsync(mark);
-        }
-
-        public async Task<List<Mark>> Query()
+        public async Task<List<Mark>> GetMarks()
         {
             var query = db.Table<Mark>();
             return await query.ToListAsync();
-        }*/
+        }
 
-        public async void Create()
+        public async Task<List<Mark>> GetMarks(Subject subject)
         {
-            await db.CreateTableAsync<Synapse>();
-            await db.CreateTableAsync<Mark>();
+            int subjectId = await this.getSubjectId(subject);
+            List<int> bindingIds = await this.getMarkIds(subjectId);
+
+            List<Mark> marks = new List<Mark>();
+
+            foreach (int bindingId in bindingIds)
+            {
+                var query = db.Table<Mark>().Where(v => v.MarkId.Equals(bindingId));
+                var result = await query.ToListAsync();
+                marks.AddRange(result);
+            }
+
+            return marks;
+        }
+
+        public async void Add(Mark mark, Subject subject)
+        {
+            int newMarkId = await db.InsertAsync(mark);
+            int subjectId = await this.getSubjectId(subject);
+
+            await db.InsertAsync(new Binding() { SubjectId = subjectId, MarkId = newMarkId });
+        }
+
+        private async Task<int> getSubjectId(Subject subject)
+        {
+            var query = db.Table<Subject>().Where(v => v.Name.Equals(subject.Name));
+            var data = await query.ToListAsync();
+
+            if (data.Count == 1)
+            {
+                return data[0].SubjectId;
+            } else
+            {
+                //chyba ve čtení databáze (? - vzít první, pokud vůbec existuje) //*
+                return 0;
+            }
+        }
+
+        private async Task<List<int>> getMarkIds(int subjectId)
+        {
+            var query = db.Table<Binding>().Where(v => v.SubjectId.Equals(subjectId));
+            var data = await query.ToListAsync();
+
+            List<int> ids = new List<int>();
+
+            foreach (Binding value in data)
+            {
+                ids.Add(value.MarkId);
+            }
+
+            return ids;
         }
 
     }

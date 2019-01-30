@@ -10,20 +10,19 @@ namespace MarkCalculator
         static void Main(string[] args)
         {
            
-            sqlAction.Create();
-            sqlAction.Add(new Mark() { Value = 2, Weight = 30 });
+            /*sqlAction.Create();
 
             x();
 
-            Console.ReadKey();
+            Console.ReadKey();*/
         }
 
         static private async void x()
         {
-            foreach (Mark item in await sqlAction.Query())
+            /*foreach (Mark item in await sqlAction.Query())
             {
                 Console.WriteLine(item.Value + "(" + item.Weight + ")" + ";");
-            }
+            }*/
         }
     }
 }

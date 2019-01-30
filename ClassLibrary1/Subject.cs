@@ -5,11 +5,10 @@ using SQLite;
 
 namespace ClassLibrary1
 {
-    public class Mark
+    public class Subject
     {
         [PrimaryKey, AutoIncrement]
-        public int MarkId { get; set; }
-        public int Value { get; set; }
-        public int Weight { get; set; }
+        public int SubjectId { get; set; }
+        public string Name { get; set; }
     }
 }
