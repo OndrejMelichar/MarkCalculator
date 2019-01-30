@@ -48,12 +48,17 @@ namespace ClassLibrary1
             return marks;
         }
 
-        public async void Add(Mark mark, Subject subject)
+        public async void AddMark(Mark mark, Subject subject)
         {
             int newMarkId = await db.InsertAsync(mark);
             int subjectId = await this.getSubjectId(subject);
 
             await db.InsertAsync(new Binding() { SubjectId = subjectId, MarkId = newMarkId });
+        }
+
+        public async void AddSubject(Subject subject)
+        {
+            await db.InsertAsync(subject);
         }
 
         private async Task<int> getSubjectId(Subject subject)
