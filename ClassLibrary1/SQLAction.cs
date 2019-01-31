@@ -48,6 +48,12 @@ namespace ClassLibrary1
             return marks;
         }
 
+        public async Task<List<Subject>> GetSubjects()
+        {
+            var query = db.Table<Subject>();
+            return await query.ToListAsync();
+        }
+
         public async void AddMark(Mark mark, Subject subject)
         {
             int newMarkId = await db.InsertAsync(mark);
