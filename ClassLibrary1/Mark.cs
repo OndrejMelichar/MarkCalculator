@@ -9,7 +9,7 @@ namespace ClassLibrary1
     {
         [PrimaryKey, AutoIncrement]
         public int MarkId { get; set; }
-        public int Value { get; set; }
+        public float Value { get; set; }
         public int Weight { get; set; }
     }
 }
