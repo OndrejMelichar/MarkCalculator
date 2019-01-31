@@ -18,7 +18,7 @@ namespace ClassLibrary1
             this.db = new SQLiteAsyncConnection(databasePath);
         }
 
-        public async void CreateTables()
+        public async Task CreateTables()
         {
             await db.CreateTableAsync<Mark>();
             await db.CreateTableAsync<Subject>();
