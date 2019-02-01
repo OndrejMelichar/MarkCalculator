@@ -13,7 +13,6 @@ namespace ClassLibrary1
 
         public SQLAction(string databaseName)
         {
-            //var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), databaseName);
             this.db = new SQLiteAsyncConnection(databaseName);
             this.createTables();
         }
@@ -57,7 +56,7 @@ namespace ClassLibrary1
         public async void AddMark(Mark mark, Subject subject)
         {
             await db.InsertAsync(mark);
-            int newMarkId = await this.getLastMarkId(mark); //* otestovat; co, když je DB prázdná?
+            int newMarkId = await this.getLastMarkId(mark);
             int subjectId = await this.getSubjectId(subject);
 
             await db.InsertAsync(new Binding() { SubjectId = subjectId, MarkId = newMarkId });
@@ -100,8 +99,7 @@ namespace ClassLibrary1
 
         private async Task<int> getLastMarkId(Mark mark)
         {
-            var query = db.Table<Mark>().Where(v => v.Equals(mark));
-            var data = await query.ToListAsync();
+            var data = await db.QueryAsync<Mark>("select * from Mark where Value = ? AND Weight = ?", mark.Value, mark.Weight);
 
             if (data.Count != 0)
             {

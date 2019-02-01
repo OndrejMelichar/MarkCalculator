@@ -9,10 +9,12 @@ namespace ClassLibrary1
     {
         public List<Subject> Subjects { get; set; }
         public List<List<Mark>> MarksBySubjects { get; set; }
-        private SQLAction sqlAction = new SQLAction("database.db");
+        private SQLAction sqlAction;
 
         public StudentBook()
         {
+            this.sqlAction = new SQLAction("database.db");
+            System.Threading.Thread.Sleep(1000); //* divný ale potřebuju Create() zavolat a dokončit dřív než setData()
             this.setData();
         }
         private async void setData()
