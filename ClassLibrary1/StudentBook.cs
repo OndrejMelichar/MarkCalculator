@@ -14,7 +14,7 @@ namespace ClassLibrary1
         public StudentBook()
         {
             this.sqlAction = new SQLAction("database.db");
-            System.Threading.Thread.Sleep(1000); //* divný ale potřebuju Create() zavolat a dokončit dřív než setData()
+            System.Threading.Thread.Sleep(1000); //* divný ale potřebuju Create() zavolat a dokončit dřív než setData() [?: opodmínkovat všechny metody v SQLAction podle proměnné, která se změní po vytvoření tabulek]
             this.setData();
         }
         private async void setData()
