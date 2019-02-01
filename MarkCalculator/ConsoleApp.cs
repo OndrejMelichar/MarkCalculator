@@ -145,7 +145,7 @@ namespace MarkCalculator
                         Console.Write(" " + mark.Value + " (" + mark.Weight + ");");
                     }
 
-                    Console.Write("\n");
+                    Console.Write(" => " + this.studentBook.GetMarksAverage(marksBySubjects[i]) + "\n");
                 }
             } else
             {

@@ -109,5 +109,26 @@ namespace ClassLibrary1
 
             return 0;
         }
+
+        public float GetMarksAverage(List<Mark> marks)
+        {
+            float marksWeightsSum = 0;
+            int weightsSum = 0;
+
+            foreach (Mark mark in marks)
+            {
+                marksWeightsSum += mark.Value * mark.Weight;
+                weightsSum += mark.Weight;
+            }
+
+            if (marks.Count != 0)
+            {
+                return marksWeightsSum / weightsSum;
+            } else
+            {
+                return 0;
+            }
+            
+        }
     }
 }
