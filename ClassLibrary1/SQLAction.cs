@@ -56,7 +56,8 @@ namespace ClassLibrary1
 
         public async void AddMark(Mark mark, Subject subject)
         {
-            int newMarkId = await db.InsertAsync(mark);
+            await db.InsertAsync(mark);
+            int newMarkId = await this.getLastMarkId(mark); //* otestovat; co, když je DB prázdná?
             int subjectId = await this.getSubjectId(subject);
 
             await db.InsertAsync(new Binding() { SubjectId = subjectId, MarkId = newMarkId });
@@ -95,6 +96,20 @@ namespace ClassLibrary1
             }
 
             return ids;
+        }
+
+        private async Task<int> getLastMarkId(Mark mark)
+        {
+            var query = db.Table<Mark>().Where(v => v.Equals(mark));
+            var data = await query.ToListAsync();
+
+            if (data.Count != 0)
+            {
+                data.Reverse();
+                return data[0].MarkId;
+            }
+
+            return 0;
         }
 
     }

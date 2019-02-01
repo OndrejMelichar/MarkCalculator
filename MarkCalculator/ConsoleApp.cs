@@ -31,7 +31,7 @@ namespace MarkCalculator
                     string subjectName = Console.ReadLine();
                     Console.Write("\n");
 
-                    if (!this.studentBook.Subjects.Contains(new Subject() { Name = subjectName.ToLower() } ))
+                    if (!this.studentBook.SubjectNameExists(subjectName.ToLower()))
                     {
                         this.studentBook.AddSubject(subjectName);
                     } else
@@ -121,16 +121,15 @@ namespace MarkCalculator
                 Console.Write("Vložte název předmětu: ");
                 string value = Console.ReadLine();
                 Console.Write("\n");
-                Subject subject = new Subject() { Name = value.ToLower() };
 
-                if (this.studentBook.Subjects.Contains(subject))
+                if (this.studentBook.SubjectNameExists(value.ToLower()))
                 {
-                    return subject;
+                    return new Subject() { Name = value.ToLower() };
                 }
             }
         }
 
-        private async void print()
+        private void print()
         {
             List<List<Mark>> marksBySubjects = this.studentBook.MarksBySubjects;
 

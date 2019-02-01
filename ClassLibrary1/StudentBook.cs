@@ -17,20 +17,20 @@ namespace ClassLibrary1
         }
         private async void setData()
         {
-            await this.setSubjects();
-            await this.setMarks();
+            await this.loadSubjects();
+            await this.loadMarks();
         }
 
-        private async Task setSubjects()
+        private async Task loadSubjects()
         {
             this.Subjects = new List<Subject>(await this.sqlAction.GetSubjects());
         }
 
-        private async Task setMarks()
+        private async Task loadMarks()
         {
             this.MarksBySubjects = new List<List<Mark>>();
 
-            if (this.Subjects != null && this.Subjects.Count > 0)
+            if (this.Subjects != null && this.Subjects.Count > 0) //* je to nutné (celé)
             {
                 foreach (Subject subject in this.Subjects)
                 {
@@ -43,11 +43,11 @@ namespace ClassLibrary1
 
         public void AddSubject(string subjectName)
         {
-            Subject newSubject = new Subject() { Name = subjectName.ToLower() };
-
-            if (!this.Subjects.Contains(newSubject))
+            if (!this.SubjectNameExists(subjectName.ToLower()))
             {
+                Subject newSubject = new Subject() { Name = subjectName.ToLower() };
                 this.Subjects.Add(newSubject);
+                this.MarksBySubjects.Add(new List<Mark>());
                 this.sqlAction.AddSubject(newSubject);
             } else
             {
@@ -57,11 +57,11 @@ namespace ClassLibrary1
 
         public void AddMark(float value, int weight, Subject subject)
         {
-            if (this.checkMarkValue(value) && this.Subjects.Contains(subject))
+            if (this.checkMarkValue(value) && this.SubjectNameExists(subject.Name))
             {
                 Mark newMark = new Mark() { Value = value, Weight = weight };
 
-                int subjectIndex = this.Subjects.IndexOf(subject);
+                int subjectIndex = this.SubjectNameIndex(subject.Name);
                 this.MarksBySubjects[subjectIndex].Add(newMark);
 
                 this.sqlAction.AddMark(newMark, subject);
@@ -80,6 +80,32 @@ namespace ClassLibrary1
             }
 
             return false;
+        }
+
+        public bool SubjectNameExists(string name)
+        {
+            foreach (Subject subject in this.Subjects)
+            {
+                if (subject.Name == name)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public int SubjectNameIndex(string name)
+        {
+            for (int i=0; i < this.Subjects.Count; i++)
+            {
+                if (this.Subjects[i].Name == name)
+                {
+                    return i;
+                }
+            }
+
+            return 0;
         }
     }
 }
