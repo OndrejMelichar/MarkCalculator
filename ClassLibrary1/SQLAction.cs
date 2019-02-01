@@ -14,11 +14,11 @@ namespace ClassLibrary1
         public SQLAction(string databaseName)
         {
             //var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), databaseName);
-            var databasePath = databaseName;
-            this.db = new SQLiteAsyncConnection(databasePath);
+            this.db = new SQLiteAsyncConnection(databaseName);
+            this.createTables();
         }
 
-        public async Task CreateTables()
+        private async void createTables()
         {
             await db.CreateTableAsync<Mark>();
             await db.CreateTableAsync<Subject>();

@@ -8,40 +8,17 @@ namespace MarkCalculator
     class ConsoleApp
     {
         //* malá/velká písmena v psaní názvu předmětu
-        private StudentBook studentBook;
+        private StudentBook studentBook = new StudentBook();
 
         public void Run()
         {
-            this.studentBook = new StudentBook();
-
-            this.start();
-            this.print();
-        }
-
-        private async void start()
-        {
-            /*List<Subject> subjects = new List<Subject>() { new Subject() { Name = "matematika" }, new Subject() { Name = "fyzika" }, new Subject() { Name = "chemie" } };
-
-            await sqlAction.CreateTables();
-
-            sqlAction.AddSubject(subjects[0]);
-            sqlAction.AddSubject(subjects[1]);
-            sqlAction.AddSubject(subjects[2]);
-
-            sqlAction.AddMark(new Mark() { Value = 1, Weight = 30 }, subjects[0]);
-            sqlAction.AddMark(new Mark() { Value = 2, Weight = 30 }, subjects[1]);
-            sqlAction.AddMark(new Mark() { Value = 1, Weight = 10 }, subjects[1]);
-            sqlAction.AddMark(new Mark() { Value = 2, Weight = 20 }, subjects[0]);
-            sqlAction.AddMark(new Mark() { Value = 3, Weight = 50 }, subjects[2]);*/
-
-            while(true)
+            while (true)
             {
                 Console.Clear();
                 Console.WriteLine("Vyberte akci:\n1) Přidat předmět\n2) Přidat znáku\n3) Vypsat známky\n4) Ukončit\n");
                 string option = Console.ReadLine();
                 this.processAction(option);
             }
-            
         }
 
         private void processAction(string option)
@@ -49,22 +26,53 @@ namespace MarkCalculator
             switch (option)
             {
                 case "1":
+                    Console.Clear();
+                    Console.Write("Název nového předmětu: ");
                     string subjectName = Console.ReadLine();
-                    this.studentBook.AddSubject(subjectName);
+                    Console.Write("\n");
+
+                    if (!this.studentBook.Subjects.Contains(new Subject() { Name = subjectName.ToLower() } ))
+                    {
+                        this.studentBook.AddSubject(subjectName);
+                    } else
+                    {
+                        Console.WriteLine("Tento předmět již existuje!");
+                        this.pause();
+                    }
+
+                    
+                    this.pause();
                     break;
                 case "2":
-                    float mark = this.setValue();
-                    int weight = this.setWeight();
-                    Subject subject = this.setSubject();
-                    this.studentBook.AddMark(mark, weight, subject);
+                    Console.Clear();
+                    if (this.studentBook.Subjects.Count != 0)
+                    {
+                        float mark = this.setValue();
+                        int weight = this.setWeight();
+                        Subject subject = this.setSubject();
+                        this.studentBook.AddMark(mark, weight, subject);
+                        this.pause();
+                    } else {
+                        Console.WriteLine("Nelze přidat novou známku, jelikož zatím nebyl zapsán žádný předmět!");
+                        this.pause();
+                    }
+                    
                     break;
                 case "3":
+                    Console.Clear();
+                    this.print();
+                    this.pause();
                     break;
                 case "4":
                     System.Environment.Exit(1);
                     break;
-
             }
+        }
+
+        private void pause()
+        {
+            Console.WriteLine("\n- - - - - - - -\nPro pokračování stiskněte enter.");
+            Console.ReadKey();
         }
 
         private float setValue()
@@ -124,14 +132,27 @@ namespace MarkCalculator
 
         private async void print()
         {
-            /*var data = await sqlAction.GetMarks();
+            List<List<Mark>> marksBySubjects = this.studentBook.MarksBySubjects;
 
-            foreach (Mark mark in data)
+            if (marksBySubjects.Count != 0)
             {
-                Console.WriteLine(mark.Value + "(" + mark.Weight + ")" + ";");
-            }*/
+                for (int i = 0; i < marksBySubjects.Count; i++)
+                {
+                    string subjectName = this.studentBook.Subjects[i].Name;
+                    Console.Write(subjectName + ":");
 
+                    foreach (Mark mark in marksBySubjects[i])
+                    {
+                        Console.Write(" " + mark.Value + " (" + mark.Weight + ");");
+                    }
 
+                    Console.Write("\n");
+                }
+            } else
+            {
+                Console.WriteLine("Nebyly nalezeny žádné předměty!");
+            }
+            
         }
     }
 }

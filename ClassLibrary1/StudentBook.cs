@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
@@ -12,22 +13,30 @@ namespace ClassLibrary1
 
         public StudentBook()
         {
-            this.setSubjects();
+            this.setData();
+        }
+        private async void setData()
+        {
+            await this.setSubjects();
+            await this.setMarks();
         }
 
-        private async void setSubjects()
+        private async Task setSubjects()
         {
             this.Subjects = new List<Subject>(await this.sqlAction.GetSubjects());
         }
 
-        private async void setMarks()
+        private async Task setMarks()
         {
             this.MarksBySubjects = new List<List<Mark>>();
 
-            foreach (Subject subject in this.Subjects)
+            if (this.Subjects != null && this.Subjects.Count > 0)
             {
-                List<Mark> subjectMarks = await this.sqlAction.GetMarks(subject);
-                this.MarksBySubjects.Add(subjectMarks);
+                foreach (Subject subject in this.Subjects)
+                {
+                    List<Mark> subjectMarks = await this.sqlAction.GetMarks(subject);
+                    this.MarksBySubjects.Add(subjectMarks);
+                }
             }
 
         }
