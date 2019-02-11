@@ -4,11 +4,8 @@
              xmlns:local="clr-namespace:XamarinMarkCalculator"
              x:Class="XamarinMarkCalculator.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+    <StackLayout Orientation="Vertical" x:Name="MainStackLayout">
+        <Button x:Name="NewButton" Clicked="NewButtonClicked" Text="+"></Button>
     </StackLayout>
 
 </ContentPage>

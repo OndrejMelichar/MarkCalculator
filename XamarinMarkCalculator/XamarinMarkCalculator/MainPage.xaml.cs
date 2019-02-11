@@ -13,5 +13,10 @@ namespace XamarinMarkCalculator
         {
             InitializeComponent();
         }
+
+        private async void NewButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NewPage());
+        }
     }
 }

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinMarkCalculator.NewSubjectPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Entry x:Name="NewSubjectEntry"></Entry>
+            <Button x:Name="NewSubjectConfirmButton" Clicked="NewSubjectConfirmButtonClicked" Text="Uložit nový předmět"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
