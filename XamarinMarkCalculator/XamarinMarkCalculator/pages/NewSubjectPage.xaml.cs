@@ -15,10 +15,10 @@ namespace XamarinMarkCalculator
 	{
         private StudentBook studentBook;
 
-        public NewSubjectPage ()
+        public NewSubjectPage (StudentBook studentBook)
 		{
 			InitializeComponent();
-            this.studentBook = new StudentBook();
+            this.studentBook = studentBook;
         }
 
         private void NewSubjectConfirmButtonClicked(object sender, EventArgs e)
@@ -28,7 +28,6 @@ namespace XamarinMarkCalculator
             if (!this.studentBook.SubjectNameExists(subjectName.ToLower()))
             {
                 this.studentBook.AddSubject(subjectName);
-                Navigation.RemovePage(this);
             }
             else
             {
