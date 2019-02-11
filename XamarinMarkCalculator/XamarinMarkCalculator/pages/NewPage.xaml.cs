@@ -25,6 +25,8 @@ namespace XamarinMarkCalculator
         private async void NewMarkButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NewMarkPage());
+            Navigation.RemovePage(this);
+            //Navigation.PopAsync();
         }
     }
 }

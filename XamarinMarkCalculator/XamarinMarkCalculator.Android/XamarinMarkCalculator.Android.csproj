@@ -95,6 +95,10 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ClassLibrary1\ClassLibrary1.csproj">
+      <Project>{55659e5f-a110-460a-a8cb-efb383b28356}</Project>
+      <Name>ClassLibrary1</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XamarinMarkCalculator\XamarinMarkCalculator.csproj">
       <Project>{A697ECFF-7B35-47E5-8245-8CB5186E8E47}</Project>
       <Name>XamarinMarkCalculator</Name>

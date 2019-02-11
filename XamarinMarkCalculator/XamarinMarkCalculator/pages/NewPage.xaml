@@ -4,8 +4,8 @@
              x:Class="XamarinMarkCalculator.NewPage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Button x:Name="NewSubjectButton" Clicked="NewSubjectButtonClicked"></Button>
-            <Button x:Name="NewMarkButton" Clicked="NewMarkButtonClicked"></Button>
+            <Button x:Name="NewSubjectButton" Clicked="NewSubjectButtonClicked" Text="Přidat předmět"></Button>
+            <Button x:Name="NewMarkButton" Clicked="NewMarkButtonClicked" Text="Přidat známku"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
