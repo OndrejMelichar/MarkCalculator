@@ -27,20 +27,15 @@ namespace XamarinMarkCalculator.pages
 
         }
 
-        private void NewSubjectNameButtonClicked(object sender, EventArgs e)
+        private async void NewSubjectNameButtonClicked(object sender, EventArgs e)
         {
             string newSubjectName = newSubjectNameEntry.Text;
 
             this.studentBook.AddSubject(newSubjectName);
+            this.mainPage.AddSubjectButton(newSubjectName);
+            this.mainPage.UpdateNewSubjectButton();
+            await this.Navigation.PopModalAsync();
 
-            Button newSubjectButton = new Button() { Text = newSubjectName };
-            newSubjectButton.Clicked += this.mainPage.subjectButtonClicked;
-            this.mainStackLayout.Children.Add(newSubjectButton);
-        }
-
-        public async void subjectButtonClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new SubjectMarksPage());
         }
     }
 }
