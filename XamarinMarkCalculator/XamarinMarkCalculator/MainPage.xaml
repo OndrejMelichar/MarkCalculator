@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:XamarinMarkCalculator"
              x:Class="XamarinMarkCalculator.MainPage">
 
-    <StackLayout Orientation="Vertical" x:Name="MainStackLayout" />
+    <StackLayout Orientation="Vertical" x:Name="mainStackLayout" />
+
+
 
 </ContentPage>
