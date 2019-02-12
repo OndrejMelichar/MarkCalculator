@@ -44,12 +44,13 @@ namespace XamarinMarkCalculator
         {
             StackLayout subjectRowStackLayout = new StackLayout() { Orientation = StackOrientation.Horizontal };
             Button newSubjectButton = new Button() { Text = newSubjectName};
-            newSubjectButton.Clicked += subjectButtonClicked;
             Label averageLabel = new Label() { Text = average.ToString() };
             
             subjectRowStackLayout.Children.Add(newSubjectButton);
             subjectRowStackLayout.Children.Add(averageLabel);
             mainStackLayout.Children.Add(subjectRowStackLayout);
+
+            newSubjectButton.Clicked += subjectButtonClicked;
         }
 
         public void UpdateNewSubjectButton(bool removeOld = true)
@@ -69,7 +70,7 @@ namespace XamarinMarkCalculator
             await Navigation.PushModalAsync(new NewSubjectPage(this.studentBook, mainStackLayout, this));
         }
 
-        public async Task subjectButtonClicked(object sender, EventArgs e)
+        public async void subjectButtonClicked(object sender, EventArgs e)
         {
             int index = this.containsChildren(mainStackLayout, sender);
 
@@ -78,12 +79,12 @@ namespace XamarinMarkCalculator
 
         private int containsChildren(StackLayout stackLayout, object sender)
         {
-            List<StackLayout> stackLayouts = (List<StackLayout>)(stackLayout.Children);
+            var list = stackLayout.Children;
             Button senderButton = (Button)sender;
 
-            for (int i = 0; i < stackLayouts.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                string listButtonText = ((Button)(stackLayouts[i].Children[0])).Text;
+                string listButtonText = ((Button)(((StackLayout)list[i]).Children[0])).Text;
 
                 if (listButtonText.Equals(senderButton.Text))
                 {
