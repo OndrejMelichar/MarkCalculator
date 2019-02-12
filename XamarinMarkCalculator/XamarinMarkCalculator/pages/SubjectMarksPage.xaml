@@ -4,9 +4,9 @@
              x:Class="XamarinMarkCalculator.pages.SubjectMarksPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ScrollView>
+                <StackLayout Orientation="Vertical" x:Name="marksStackLayout" />
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

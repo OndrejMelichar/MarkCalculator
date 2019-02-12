@@ -33,14 +33,14 @@ namespace XamarinMarkCalculator
             {
                 List<Mark> subjectMarks = this.studentBook.MarksBySubjects[i];
                 float average = this.studentBook.GetMarksAverage(subjectMarks);
-                this.AddSubjectButton(this.studentBook.Subjects[i].Name, average);
+                this.AddSubjectRow(this.studentBook.Subjects[i].Name, average);
             }
 
             this.UpdateNewSubjectButton(false);
 
         }
 
-        public void AddSubjectButton(string newSubjectName, float average = 0f)
+        public void AddSubjectRow(string newSubjectName, float average = 0f)
         {
             StackLayout subjectRowStackLayout = new StackLayout() { Orientation = StackOrientation.Horizontal };
             Button newSubjectButton = new Button() { Text = newSubjectName};
@@ -54,7 +54,7 @@ namespace XamarinMarkCalculator
 
         public void UpdateNewSubjectButton(bool removeOld = true)
         {
-            if (removeOld && this.mainStackLayout.Children.Count >= 2)
+            if (removeOld && mainStackLayout.Children.Count >= 2)
             {
                 mainStackLayout.Children.RemoveAt(mainStackLayout.Children.Count - 2);
             }
@@ -69,11 +69,29 @@ namespace XamarinMarkCalculator
             await Navigation.PushModalAsync(new NewSubjectPage(this.studentBook, mainStackLayout, this));
         }
 
-        public async void subjectButtonClicked(object sender, EventArgs e)
+        public async Task subjectButtonClicked(object sender, EventArgs e)
         {
-            int index = mainStackLayout.Children.IndexOf((Button)sender);
+            int index = this.containsChildren(mainStackLayout, sender);
 
-            await Navigation.PushModalAsync(new SubjectMarksPage());
+            await Navigation.PushModalAsync(new SubjectMarksPage(this.studentBook.Subjects[index], index, this.studentBook));
+        }
+
+        private int containsChildren(StackLayout stackLayout, object sender)
+        {
+            List<StackLayout> stackLayouts = (List<StackLayout>)(stackLayout.Children);
+            Button senderButton = (Button)sender;
+
+            for (int i = 0; i < stackLayouts.Count; i++)
+            {
+                string listButtonText = ((Button)(stackLayouts[i].Children[0])).Text;
+
+                if (listButtonText.Equals(senderButton.Text))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
     }
 }

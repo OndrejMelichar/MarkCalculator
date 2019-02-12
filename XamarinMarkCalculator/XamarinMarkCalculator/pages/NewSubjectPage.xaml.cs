@@ -29,13 +29,32 @@ namespace XamarinMarkCalculator.pages
 
         private async void NewSubjectNameButtonClicked(object sender, EventArgs e)
         {
-            string newSubjectName = newSubjectNameEntry.Text;
+            string newSubjectName = this.normalizeName(newSubjectNameEntry.Text);
 
-            this.studentBook.AddSubject(newSubjectName);
-            this.mainPage.AddSubjectButton(newSubjectName);
-            this.mainPage.UpdateNewSubjectButton();
-            await this.Navigation.PopModalAsync();
+            if (this.newSubjectNameCheck(newSubjectName))
+            {
+                this.studentBook.AddSubject(newSubjectName);
+                this.mainPage.AddSubjectRow(newSubjectName);
+                this.mainPage.UpdateNewSubjectButton();
+                await this.Navigation.PopModalAsync();
+            }
+            
 
+        }
+
+        private string normalizeName(string name)
+        {
+            return name.First().ToString().ToUpper() + name.Substring(1).ToLower();
+        }
+
+        private bool newSubjectNameCheck(string name)
+        {
+            if (!this.studentBook.SubjectNameExists(name) && name.Length <= 20)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

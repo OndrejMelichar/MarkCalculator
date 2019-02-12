@@ -44,33 +44,20 @@ namespace ClassLibrary1
 
         public void AddSubject(string subjectName)
         {
-            if (!this.SubjectNameExists(subjectName.ToLower()))
-            {
-                Subject newSubject = new Subject() { Name = subjectName.ToLower() };
-                this.Subjects.Add(newSubject);
-                this.MarksBySubjects.Add(new List<Mark>());
-                this.sqlAction.AddSubject(newSubject);
-            } else
-            {
-                //*
-            }
+            Subject newSubject = new Subject() { Name = subjectName.ToLower() };
+            this.Subjects.Add(newSubject);
+            this.MarksBySubjects.Add(new List<Mark>());
+            this.sqlAction.AddSubject(newSubject);
         }
 
         public void AddMark(float value, int weight, Subject subject)
         {
-            if (this.checkMarkValue(value) && this.SubjectNameExists(subject.Name))
-            {
-                Mark newMark = new Mark() { Value = value, Weight = weight };
+            Mark newMark = new Mark() { Value = value, Weight = weight };
 
-                int subjectIndex = this.SubjectNameIndex(subject.Name);
-                this.MarksBySubjects[subjectIndex].Add(newMark);
+            int subjectIndex = this.SubjectNameIndex(subject.Name);
+            this.MarksBySubjects[subjectIndex].Add(newMark);
 
-                this.sqlAction.AddMark(newMark, subject);
-            } else
-            {
-                //*
-            }
-            
+            this.sqlAction.AddMark(newMark, subject);
         }
 
         private bool checkMarkValue(float mark)

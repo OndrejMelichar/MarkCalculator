@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinMarkCalculator.pages.NewMarkPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry x:Name="newMarkValueEntry" Placeholder="Název nového předmětu" />
+            <Entry x:Name="newMarkWeightEntry" Placeholder="Celočíselná hodnota znáky" />
+            <Button x:Name="newMarkButton" Clicked="NewMarkButtonClicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
