@@ -4,8 +4,6 @@
              xmlns:local="clr-namespace:XamarinMarkCalculator"
              x:Class="XamarinMarkCalculator.MainPage">
 
-    <StackLayout Orientation="Vertical" x:Name="MainStackLayout">
-        <Button x:Name="NewButton" Clicked="NewButtonClicked" Text="+"></Button>
-    </StackLayout>
+    <StackLayout Orientation="Vertical" x:Name="MainStackLayout" />
 
 </ContentPage>

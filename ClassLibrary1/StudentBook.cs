@@ -11,6 +11,8 @@ namespace ClassLibrary1
         public List<Subject> Subjects { get; set; }
         public List<List<Mark>> MarksBySubjects { get; set; }
 
+        public string pokus = "nazdar";
+
         public StudentBook(SQLAction sqlAction)
         {
             this.sqlAction = sqlAction;
