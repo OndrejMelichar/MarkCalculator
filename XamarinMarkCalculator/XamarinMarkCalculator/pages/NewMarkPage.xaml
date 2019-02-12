@@ -4,9 +4,9 @@
              x:Class="XamarinMarkCalculator.pages.NewMarkPage">
     <ContentPage.Content>
         <StackLayout>
-            <Entry x:Name="newMarkValueEntry" Placeholder="Název nového předmětu" />
-            <Entry x:Name="newMarkWeightEntry" Placeholder="Celočíselná hodnota znáky" />
-            <Button x:Name="newMarkButton" Clicked="NewMarkButtonClicked" />
+            <Entry x:Name="newMarkValueEntry" Placeholder="Nová známka" />
+            <Entry x:Name="newMarkWeightEntry" Placeholder="Celočíselná váha nové známky" />
+            <Button x:Name="newMarkButton" Text="Uložit novou známku" Clicked="NewMarkButtonClicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

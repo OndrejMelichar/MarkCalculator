@@ -5,7 +5,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Entry x:Name="newSubjectNameEntry" Placeholder="Název nového předmětu"></Entry>
-            <Button x:Name="newSubjectNameButton" Clicked="NewSubjectNameButtonClicked" />
+            <Button x:Name="newSubjectNameButton" Text="Uložit nový předmět" Clicked="NewSubjectNameButtonClicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

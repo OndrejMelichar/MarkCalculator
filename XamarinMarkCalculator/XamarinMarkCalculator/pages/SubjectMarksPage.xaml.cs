@@ -16,14 +16,18 @@ namespace XamarinMarkCalculator.pages
         private Subject subject;
         private int index;
         private StudentBook studentBook;
+        private StackLayout mainStackLayout;
 
-        public SubjectMarksPage(Subject subject, int index, StudentBook studentBook)
+        public SubjectMarksPage(Subject subject, int index, StudentBook studentBook, StackLayout mainStackLayout)
         {
             InitializeComponent();
 
             this.subject = subject;
             this.index = index;
             this.studentBook = studentBook;
+            this.mainStackLayout = mainStackLayout;
+
+            this.ShowMarks();
         }
 
         private void ShowMarks()
@@ -50,14 +54,14 @@ namespace XamarinMarkCalculator.pages
                 marksStackLayout.Children.RemoveAt(marksStackLayout.Children.Count - 2);
             }
 
-            Button newSubjectButton = new Button() { Text = "Přidat předmět" };
+            Button newSubjectButton = new Button() { Text = "Přidat známku" };
             newSubjectButton.Clicked += this.newMarkButtonClicked;
             marksStackLayout.Children.Add(newSubjectButton);
         }
 
         private async void newMarkButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NewMarkPage(this.studentBook.Subjects[index], this.index, this.studentBook, this));
+            await Navigation.PushModalAsync(new NewMarkPage(this.studentBook.Subjects[index], this.index, this.studentBook, this.mainStackLayout, this));
         }
 
     }

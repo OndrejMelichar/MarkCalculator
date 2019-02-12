@@ -65,18 +65,6 @@ namespace XamarinMarkCalculator
             mainStackLayout.Children.Add(newSubjectButton);
         }
 
-        private async void newSubjectButtonClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new NewSubjectPage(this.studentBook, mainStackLayout, this));
-        }
-
-        public async void subjectButtonClicked(object sender, EventArgs e)
-        {
-            int index = this.containsChildren(mainStackLayout, sender);
-
-            await Navigation.PushModalAsync(new SubjectMarksPage(this.studentBook.Subjects[index], index, this.studentBook));
-        }
-
         private int containsChildren(StackLayout stackLayout, object sender)
         {
             var list = stackLayout.Children;
@@ -94,5 +82,18 @@ namespace XamarinMarkCalculator
 
             return -1;
         }
+
+        private async void newSubjectButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NewSubjectPage(this.studentBook, mainStackLayout, this));
+        }
+
+        public async void subjectButtonClicked(object sender, EventArgs e)
+        {
+            int index = this.containsChildren(mainStackLayout, sender);
+
+            await Navigation.PushModalAsync(new SubjectMarksPage(this.studentBook.Subjects[index], index, this.studentBook, mainStackLayout));
+        }
+        
     }
 }

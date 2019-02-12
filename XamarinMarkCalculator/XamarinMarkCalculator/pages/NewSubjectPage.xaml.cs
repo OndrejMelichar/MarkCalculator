@@ -35,6 +35,7 @@ namespace XamarinMarkCalculator.pages
             {
                 this.studentBook.AddSubject(newSubjectName);
                 this.mainPage.AddSubjectRow(newSubjectName);
+                this.studentBook.Subjects.Add(new Subject() { Name = newSubjectName });
                 this.mainPage.UpdateNewSubjectButton();
                 await this.Navigation.PopModalAsync();
             }

@@ -16,15 +16,17 @@ namespace XamarinMarkCalculator.pages
         private Subject subject;
         private int index;
         private StudentBook studentBook;
+        private StackLayout mainStackLayout;
         private SubjectMarksPage subjectMarksPage;
 
-        public NewMarkPage(Subject subject, int index, StudentBook studentBook, SubjectMarksPage subjectMarksPage)
+        public NewMarkPage(Subject subject, int index, StudentBook studentBook, StackLayout mainStackLayout, SubjectMarksPage subjectMarksPage)
         {
             InitializeComponent();
 
             this.subject = subject;
             this.index = index;
             this.studentBook = studentBook;
+            this.mainStackLayout = mainStackLayout;
             this.subjectMarksPage = subjectMarksPage;
         }
 
@@ -39,6 +41,7 @@ namespace XamarinMarkCalculator.pages
             {
                 this.studentBook.AddMark(newMarkValue, newMarkWeight, this.subject);
                 this.subjectMarksPage.AddMark(newMarkValue, newMarkWeight);
+                ((Label)((StackLayout)this.mainStackLayout.Children[this.index]).Children[1]).Text = this.studentBook.GetMarksAverage(this.studentBook.MarksBySubjects[this.index]).ToString();
                 this.subjectMarksPage.UpdateNewMarkButton();
                 await this.Navigation.PopModalAsync();
             }
