@@ -13,7 +13,10 @@ namespace ClassLibrary1
 
         public SQLAction(string databaseName)
         {
-            this.db = new SQLiteAsyncConnection(databaseName);
+            var path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            path = Path.Combine(path, databaseName);
+
+            this.db = new SQLiteAsyncConnection(path);
             this.createTables();
         }
 
