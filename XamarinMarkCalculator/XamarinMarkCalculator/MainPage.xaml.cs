@@ -28,7 +28,7 @@ namespace XamarinMarkCalculator
                 // schování activity indicatoru (+ zablokování)
             }).ConfigureAwait(true); // je potřeba configuje await? (s false to asi nefunguje)
 
-
+            var x = this.studentBook.Subjects;// zde jsou data a pořebuji je spojit s čísly (známkami) a vložit do do MarksBySubjects
             for (int i = 0; i < this.studentBook.MarksBySubjects.Count; i++)
             {
                 List<Mark> subjectMarks = this.studentBook.MarksBySubjects[i];
@@ -43,8 +43,8 @@ namespace XamarinMarkCalculator
         public void AddSubjectRow(string newSubjectName, float average = 0f)
         {
             StackLayout subjectRowStackLayout = new StackLayout() { Orientation = StackOrientation.Horizontal };
-            Button newSubjectButton = new Button() { Text = newSubjectName};
-            Label averageLabel = new Label() { Text = average.ToString() };
+            Button newSubjectButton = new Button() { Text = newSubjectName,  BorderColor = Color.Transparent, BackgroundColor = Color.Transparent };
+            Label averageLabel = new Label() { Text = average.ToString(), VerticalOptions = LayoutOptions.Center};
             
             subjectRowStackLayout.Children.Add(newSubjectButton);
             subjectRowStackLayout.Children.Add(averageLabel);

@@ -50,7 +50,7 @@ namespace XamarinMarkCalculator.pages
 
         private bool newSubjectNameCheck(string name)
         {
-            if (!this.studentBook.SubjectNameExists(name) && name.Length <= 20)
+            if (!this.studentBook.SubjectNameExists(name) && name.Length <= 28)
             {
                 return true;
             }
