@@ -9,18 +9,30 @@ namespace ClassLibrary1
 {
     public class SQLAction
     {
-        private SQLiteAsyncConnection db;
+        private static SQLiteAsyncConnection db;
 
-        public SQLAction(string databaseName)
+        private static SQLAction _instance;
+
+        public static async Task<SQLAction> CreateAsync(string databaseName)
+        {
+            if(_instance == null) // factory pattern
+            {
+                _instance = new SQLAction(databaseName);
+                await _instance.createTables();
+            }
+            return _instance;
+        }
+
+        private SQLAction(string databaseName)
         {
             var path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             path = Path.Combine(path, databaseName);
 
-            this.db = new SQLiteAsyncConnection(path);
-            this.createTables();
+            db = new SQLiteAsyncConnection(path);
+          
         }
 
-        private async void createTables()
+        private async Task createTables()
         {
             await db.CreateTableAsync<Mark>();
             await db.CreateTableAsync<Subject>();

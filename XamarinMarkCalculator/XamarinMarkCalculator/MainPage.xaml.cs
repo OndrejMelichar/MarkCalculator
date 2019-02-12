@@ -15,7 +15,12 @@ namespace XamarinMarkCalculator
         public MainPage()
         {
             InitializeComponent();
-            this.studentBook = new StudentBook();
+
+            Task.Run(async () =>
+           {
+               this.studentBook = new StudentBook(await SQLAction.CreateAsync("database.db"));
+               // schování activity indicatoru (+ zablokování)
+           });
         }
 
         private async void NewButtonClicked(object sender, EventArgs e)

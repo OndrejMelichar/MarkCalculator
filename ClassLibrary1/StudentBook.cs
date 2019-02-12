@@ -7,14 +7,13 @@ namespace ClassLibrary1
 {
     public class StudentBook
     {
+        private SQLAction sqlAction;
         public List<Subject> Subjects { get; set; }
         public List<List<Mark>> MarksBySubjects { get; set; }
-        private SQLAction sqlAction;
 
-        public StudentBook()
+        public StudentBook(SQLAction sqlAction)
         {
-            this.sqlAction = new SQLAction("database.db");
-            System.Threading.Thread.Sleep(10000); //* divný ale potřebuju Create() zavolat a dokončit dřív než setData() [?: opodmínkovat všechny metody v SQLAction podle proměnné, která se změní po vytvoření tabulek]
+            this.sqlAction = sqlAction;
             this.setData();
         }
         private async void setData()

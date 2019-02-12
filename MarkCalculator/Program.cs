@@ -7,10 +7,10 @@ namespace MarkCalculator
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             ConsoleApp app = new ConsoleApp();
-            app.Run();
+            await app.Run();
 
             Console.ReadKey();
         }

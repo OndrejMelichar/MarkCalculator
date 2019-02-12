@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using ClassLibrary1;
 
 namespace MarkCalculator
@@ -8,10 +9,13 @@ namespace MarkCalculator
     class ConsoleApp
     {
         //* malá/velká písmena v psaní názvu předmětu
-        private StudentBook studentBook = new StudentBook();
+        private SQLAction sqlAction;
+        private StudentBook studentBook;
 
-        public void Run()
+        public async Task Run()
         {
+            this.studentBook = new StudentBook(await SQLAction.CreateAsync("database.db"));
+
             while (true)
             {
                 Console.Clear();
