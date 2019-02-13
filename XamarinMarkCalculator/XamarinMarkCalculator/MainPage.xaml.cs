@@ -28,15 +28,24 @@ namespace XamarinMarkCalculator
                 // schování activity indicatoru (+ zablokování)
             }).ConfigureAwait(true); // je potřeba configuje await? (s false to asi nefunguje)
 
-            var x = this.studentBook.Subjects;// zde jsou data a pořebuji je spojit s čísly (známkami) a vložit do do MarksBySubjects
-            for (int i = 0; i < this.studentBook.MarksBySubjects.Count; i++)
+            while (true)
             {
-                List<Mark> subjectMarks = this.studentBook.MarksBySubjects[i];
-                float average = this.studentBook.GetMarksAverage(subjectMarks);
-                this.AddSubjectRow(this.studentBook.Subjects[i].Name, average);
-            }
+                if (this.studentBook.Ready)
+                {
+                    var y = this.studentBook.Subjects;
+                    var x = this.studentBook.MarksBySubjects;// zde jsou data a pořebuji je spojit s čísly (známkami) a vložit do do MarksBySubjects
 
-            this.UpdateNewSubjectButton(false);
+                    for (int i = 0; i < this.studentBook.MarksBySubjects.Count; i++)
+                    {
+                        List<Mark> subjectMarks = this.studentBook.MarksBySubjects[i];
+                        float average = this.studentBook.GetMarksAverage(subjectMarks);
+                        this.AddSubjectRow(this.studentBook.Subjects[i].Name, average);
+                    }
+
+                    this.UpdateNewSubjectButton(false);
+                    break;
+                }
+            }
 
         }
 

@@ -11,6 +11,8 @@ namespace ClassLibrary1
         public List<Subject> Subjects { get; set; }
         public List<List<Mark>> MarksBySubjects { get; set; }
 
+        public bool Ready = false;
+
         public StudentBook(SQLAction sqlAction)
         {
             this.sqlAction = sqlAction;
@@ -40,6 +42,7 @@ namespace ClassLibrary1
                 }
             }
 
+            this.Ready = true;
         }
 
         public void AddSubject(string subjectName)
