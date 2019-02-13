@@ -16,9 +16,9 @@ namespace ClassLibrary1
         public StudentBook(SQLAction sqlAction)
         {
             this.sqlAction = sqlAction;
-            this.setData();
+            //this.setData();
         }
-        private async void setData()
+        public async Task loadDefaultData()
         {
             await this.loadSubjects();
             await this.loadMarks();

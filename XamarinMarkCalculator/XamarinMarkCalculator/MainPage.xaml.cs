@@ -22,18 +22,14 @@ namespace XamarinMarkCalculator
 
         private async Task Start()
         {
-            await Task.Run(async () =>
-            {
-                this.studentBook = new StudentBook(await SQLAction.CreateAsync("database.db"));
-                // schování activity indicatoru (+ zablokování)
-            }).ConfigureAwait(true); // je potřeba configuje await? (s false to asi nefunguje)
 
-            while (true)
+             this.studentBook = new StudentBook(await SQLAction.CreateAsync("database.db"));
+            await this.studentBook.loadDefaultData();
+
+            while (true) // toto už asi není potřeba; pokud to potřeba je - odstraň to
             {
                 if (this.studentBook.Ready)
                 {
-                    var y = this.studentBook.Subjects;
-                    var x = this.studentBook.MarksBySubjects;// zde jsou data a pořebuji je spojit s čísly (známkami) a vložit do do MarksBySubjects
 
                     for (int i = 0; i < this.studentBook.MarksBySubjects.Count; i++)
                     {
